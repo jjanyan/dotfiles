@@ -1,0 +1,33 @@
+{
+  "explorer.icon.enableNerdfont": true,
+  "explorer.openAction.strategy": "vsplit",
+  "diagnostic.virtualText": false,
+  "diagnostic.messageTarget": "float",
+  "coc.preferences.extensionUpdateCheck": "daily",
+  "coc.preferences.formatOnType": true,
+  "coc.preferences.formatOnTypeFiletypes": [
+    "javascript",
+    "json",
+    "python",
+    "typescript",
+    "typescriptreact",
+    "vim"
+  ],
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "json",
+    "python",
+    "typescript",
+    "typescriptreact",
+    "vim"
+  ],
+  "coc.preferences.willSaveHandlerTimeout": 5000,
+  "diagnostic.checkCurrentLine": true,
+  "coc.preferences.jumpCommand": "CocSplitIfNotOpen",
+  "diagnostic.messageTarget": "float",
+  "floatFactory.floatConfig": {
+    "border": true,
+    "rounded": true
+  },
+  "tsserver.useLocalTsdk": true
+}
