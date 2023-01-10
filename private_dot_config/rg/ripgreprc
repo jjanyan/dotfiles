@@ -1,0 +1,13 @@
+# see https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md#configuration-file
+
+# Searches case insensitively.
+--smart-case
+
+# ignore package-lock.json
+--glob=!{package-lock.json}
+
+# search hidden files
+--hidden
+
+# sort by path
+--sort=path
