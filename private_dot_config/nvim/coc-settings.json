@@ -8,6 +8,7 @@
   "coc.preferences.formatOnTypeFiletypes": [
     "javascript",
     "json",
+    "prisma",
     "python",
     "typescript",
     "typescriptreact",
@@ -16,6 +17,7 @@
   "coc.preferences.formatOnSaveFiletypes": [
     "javascript",
     "json",
+    "prisma",
     "python",
     "typescript",
     "typescriptreact",

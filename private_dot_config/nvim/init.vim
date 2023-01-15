@@ -25,6 +25,11 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set scrolloff=5
 " prevent bouncing of gutter
 set signcolumn=number
+" default unfolded
+set foldlevel=99
+" smart search (mostly case insensitive) - it needs ignorecase to work
+set ignorecase
+set smartcase
 
 
 " set the leader key to spacebar
@@ -81,6 +86,9 @@ call plug#begin()
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'nvim-telescope/telescope-file-browser.nvim'
+
+  " telescope extension for coc.nvim
+  Plug 'fannheyward/telescope-coc.nvim'
 
   " fancy icons
   Plug 'nvim-tree/nvim-web-devicons'
@@ -150,7 +158,8 @@ endfunction
 command! -nargs=+ CocSplitIfNotOpen :call SplitIfNotOpen(<f-args>)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+" nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gr <cmd>Telescope coc references<cr>
 :nnoremap <space>e :CocCommand explorer<CR>
 " enter will confirm and not newline when selecting an lsp option
 inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
@@ -189,9 +198,11 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 
 
 " hop?
-map f  <esc>:HopPattern<cr>
-nmap f <esc>:HopPattern<cr>
-map F  <esc>:HopWord<cr>
-nmap F <esc>:HopWord<cr>
-map  gl <esc>:HopLine<cr>
-nmap gl <esc>:HopLine<cr>
+map F  <esc>:HopPattern<cr>
+nmap F <esc>:HopPattern<cr>
+map f  <esc>:HopWord<cr>
+nmap f <esc>:HopWord<cr>
+" meh
+map s  <esc>:HopChar1<cr>
+" map  gl <esc>:HopLine<cr>
+" nmap gl <esc>:HopLine<cr>
