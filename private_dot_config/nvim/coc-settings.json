@@ -2,27 +2,9 @@
   "explorer.icon.enableNerdfont": true,
   "explorer.openAction.strategy": "vsplit",
   "diagnostic.virtualText": false,
-  "diagnostic.messageTarget": "float",
   "coc.preferences.extensionUpdateCheck": "daily",
   "coc.preferences.formatOnType": true,
-  "coc.preferences.formatOnTypeFiletypes": [
-    "javascript",
-    "json",
-    "prisma",
-    "python",
-    "typescript",
-    "typescriptreact",
-    "vim"
-  ],
-  "coc.preferences.formatOnSaveFiletypes": [
-    "javascript",
-    "json",
-    "prisma",
-    "python",
-    "typescript",
-    "typescriptreact",
-    "vim"
-  ],
+  "coc.preferences.formatOnSave": true,
   "coc.preferences.willSaveHandlerTimeout": 5000,
   "diagnostic.checkCurrentLine": true,
   "coc.preferences.jumpCommand": "CocSplitIfNotOpen",
@@ -31,5 +13,19 @@
     "border": true,
     "rounded": true
   },
-  "tsserver.useLocalTsdk": true
+  "tsserver.useLocalTsdk": true,
+  // codelens stuff, other than ref counts, not sure what i get
+  // why is this outside of the typescript section?
+  "typescript.referencesCodeLens.enabled": true,
+  "codeLens.position": "eol",
+  "codeLens.enable": true,
+  "typescript.inlayHints.variableTypes.enabled": true,
+  "typescript.inlayHints.parameterTypes.enabled": true,
+  "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
+  "eslint.autoFixOnSave": false,
+
+  //"tsserver.experimental.enableProjectDiagnostics": true,
+
+  // this is how languages are configured now
+  "[typecript]": {}
 }

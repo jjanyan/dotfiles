@@ -23,11 +23,11 @@ require'nvim-treesitter.configs'.setup {
     --     -- colors = {}, -- table of hex strings
     --     -- termcolors = {} -- table of colour name strings
     -- },
-    -- matchup = { -- vim-matchup config
-    --     enable = true,              -- mandatory, false will disable the whole extension
-    --     disable = {},  -- optional, list of language that will be disabled
-    --     -- [options]
-    -- },
+    matchup = { -- vim-matchup config
+        enable = true,              -- mandatory, false will disable the whole extension
+        disable = {},  -- optional, list of language that will be disabled
+        -- [options]
+    },
   incremental_selection = {
     enable = true,
     -- this lets you select larger chunks of code to manipulate
@@ -40,6 +40,7 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
+require('mini.surround').setup()
 require'nvim-web-devicons'.setup { default = true; }
 require("bufferline").setup{}
 require'telescope'.setup{
@@ -68,3 +69,17 @@ require'colorizer'.setup()
 
 -- hop - keybinds are in init.vim
 require'hop'.setup { }
+
+
+-- local quotes = {
+--   { "'", "'" },
+--   { '"', '"' },
+--   { "`", "`" },
+-- }
+-- local cycle_quotes = require("ts-node-action.actions.cycle_quotes")(quotes)
+-- require("ts-node-action").setup({
+--   typescript = {
+--     ["string"] = cycle_quotes,
+--   },
+-- })
+-- vim.keymap.set({ "n" }, "\"", function() require("ts-node-action").node_action() end, { desc = "Trigger Node Action" })
