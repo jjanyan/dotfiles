@@ -1,3 +1,6 @@
+#if test "$SHLVL" -gt 1
+#  return
+#end
 if status is-interactive
   # control + k to accept suggestion
   # this stops my clearing the screen

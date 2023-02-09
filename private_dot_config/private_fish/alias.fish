@@ -8,7 +8,7 @@ alias cd1='cd ..; ls'
 alias cd2='cd ../..; ls'
 alias cd3='cd ../../..; ls'
 alias gls="git log --pretty=format:'%C(dim white)%h %ad%Creset %C(normal)%s%Creset | %C(yellow)%an%Creset' --stat"
-alias vihosts="sudo /usr/local/bin/nvim /etc/hosts"
+alias vihosts="sudo /opt/homebrew/bin/nvim /etc/hosts"
 alias fh='history 0 | fzf'
 # moved these back to alias so i can do gd, hit up, then modify to ga to continue. expanding out just makes shit slow. f*ck that
 alias gd='git diff'
@@ -38,7 +38,8 @@ abbr -ag request 'gh pr create --title="[$(git rev-parse --abbrev-ref HEAD)]" --
 abbr -ag migrate 'npx prisma migrate dev'
 # misc
 abbr -ag cat bat
-abbr -ag la exa -a
+abbr -ag la exa -al
 abbr -ag l exa -1 --icons
 # stop using ag
 abbr -ag ag sleep
+abbr -ag zen 'git checkout master && git pull && gh poi'
