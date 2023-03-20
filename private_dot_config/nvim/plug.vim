@@ -56,6 +56,15 @@ call plug#begin()
   "Plug 'folke/which-key.nvim'
   Plug 'liuchengxu/vim-which-key'
 
+  Plug 'xiyaowong/telescope-emoji.nvim'
+
+  " auto sessions?
+  Plug 'olimorris/persisted.nvim'
+
+  " smart column - highlight when you're at 80 chars
+  " i like this, but cb has too much code that's 80+ chars
+  " Plug 'm4xshen/smartcolumn.nvim'
+
   " ts-node-action
   " Plug 'ckolkey/ts-node-action'
 

@@ -1,11 +1,14 @@
 -- global
 local hyper = { "cmd", "alt", "ctrl", "shift" }
-local log = hs.logger.new('hammerspoon', 'debug')
-
+local hotkey = require "hs.hotkey"
+local window = require "hs.window"
+local alert = require "hs.alert"
+local application = require "hs.application"
+local spotify = require "hs.spotify"
 
 -- fullscreen
-hs.hotkey.bind(hyper, "K", function()
-  local win = hs.window.focusedWindow()
+hotkey.bind(hyper, "K", function()
+  local win = window.focusedWindow()
   local f = win:frame()
   local screen = win:screen()
   local max = screen:frame()
@@ -18,8 +21,8 @@ hs.hotkey.bind(hyper, "K", function()
 end)
 
 -- left
-hs.hotkey.bind(hyper, "J", function()
-  local win = hs.window.focusedWindow()
+hotkey.bind(hyper, "J", function()
+  local win = window.focusedWindow()
   local f = win:frame()
   local screen = win:screen()
   local max = screen:frame()
@@ -32,8 +35,8 @@ hs.hotkey.bind(hyper, "J", function()
 end)
 
 -- right
-hs.hotkey.bind(hyper, "L", function()
-  local win = hs.window.focusedWindow()
+hotkey.bind(hyper, "L", function()
+  local win = window.focusedWindow()
   local f = win:frame()
   local screen = win:screen()
   local max = screen:frame()
@@ -47,14 +50,26 @@ hs.hotkey.bind(hyper, "L", function()
 end)
 
 -- show firefox
-hs.hotkey.bind(hyper, "C", function()
-  hs.application.launchOrFocus('Google Chrome')
+hotkey.bind(hyper, "C", function()
+  application.launchOrFocus('Google Chrome')
 end)
--- show iterm
-hs.hotkey.bind(hyper, "I", function()
-  hs.application.launchOrFocus('Iterm')
+-- show kitty terminal
+hotkey.bind(hyper, "T", function()
+  application.launchOrFocus('kitty')
 end)
 -- show current spotify track
-hs.hotkey.bind(hyper, "Y", function()
-  hs.spotify.displayCurrentTrack()
+hotkey.bind(hyper, "Y", function()
+  spotify.displayCurrentTrack()
+end)
+
+hotkey.bind(hyper, "O", function()
+  application.launchOrFocus('Obsidian')
+end)
+
+hotkey.bind(hyper, "D", function()
+  application.launchOrFocus('DataGrip')
+end)
+
+hotkey.bind(hyper, "H", function()
+  alert.show("C - Chrome\nT - Kitty\nY - Spotify\nO - Obsidian\nD - DataGrip")
 end)

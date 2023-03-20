@@ -23,6 +23,7 @@
   "typescript.inlayHints.parameterTypes.enabled": true,
   "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
   "eslint.autoFixOnSave": false,
+  "pyright.testing.provider": "pytest",
 
   //"tsserver.experimental.enableProjectDiagnostics": true,
 

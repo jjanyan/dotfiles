@@ -64,3 +64,6 @@ noremap <silent> L :bn<CR>
 " undo history (even between sessions)
 set undofile
 set undodir=~/.vim/undodir
+
+" only needed if using sessions
+set sessionoptions+=blank,buffers,curdir,folds,help,options,tabpages,winsize,resize,winpos,terminal
