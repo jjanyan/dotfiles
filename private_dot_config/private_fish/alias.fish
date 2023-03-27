@@ -14,13 +14,18 @@ alias fh='history 0 | fzf'
 alias gd='git diff'
 alias ga='git add'
 alias ls='exa --icons'
+alias j z
+alias ji zi
+alias killdns='sudo killall -HUP mDNSResponder'
+
 
 # vim
 abbr -ag vim nvim
 abbr -ag vi nvim
-# zoxide instead of autojump
-abbr -ag j z
-abbr -ag ji zi
+
+# keep my dotfiles up to date
+abbr -ag ca chezmoi add
+
 # git
 abbr -ag gs git status
 abbr -ag gc git commit
@@ -36,10 +41,10 @@ abbr -ag approve gh pr review --approve
 abbr -ag squash 'gh pr merge --squash --delete-branch --subject="[$(git rev-parse --abbrev-ref HEAD)]" --body=""'
 abbr -ag request 'gh pr create --title="[$(git rev-parse --abbrev-ref HEAD)]" --fill'
 abbr -ag migrate 'npx prisma migrate dev'
+
 # misc
 abbr -ag cat bat
 abbr -ag la exa -al
 abbr -ag l exa -1 --icons
-# stop using ag
-abbr -ag ag sleep
-abbr -ag zen 'git checkout master && git pull && gh poi'
+
+# check https://github.com/gazorby/fish-exa for additional exa aliases

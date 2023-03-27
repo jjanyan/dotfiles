@@ -5,6 +5,8 @@ local window = require "hs.window"
 local alert = require "hs.alert"
 local application = require "hs.application"
 local spotify = require "hs.spotify"
+local timer = require "hs.timer"
+local notify = require "hs.notify"
 
 -- fullscreen
 hotkey.bind(hyper, "K", function()
@@ -70,6 +72,29 @@ hotkey.bind(hyper, "D", function()
   application.launchOrFocus('DataGrip')
 end)
 
+hotkey.bind(hyper, "S", function()
+  application.launchOrFocus('Slack')
+end)
+
 hotkey.bind(hyper, "H", function()
-  alert.show("C - Chrome\nT - Kitty\nY - Spotify\nO - Obsidian\nD - DataGrip")
+  alert.show(
+    "C - Chrome\nT - Kitty\nY - Spotify\nO - Obsidian\nD - DataGrip\nS - Slack\nR - Restart BetterTouchTool\nH - Help")
+end)
+
+function restartApp(appName)
+  local app = application.find(appName)
+
+  if app then
+    app:kill() -- Terminate the app
+    timer.doAfter(1, function() -- Wait for a second
+      application.open(appName) -- Launch the app again
+    end)
+  else
+    notify.show("Application not found", "", "The application '" .. appName .. "' is not running or not found.")
+  end
+end
+
+-- restart BetterTouchTool
+hotkey.bind(hyper, "R", function()
+  restartApp('BetterTouchTool')
 end)
