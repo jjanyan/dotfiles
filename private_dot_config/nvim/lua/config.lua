@@ -58,6 +58,11 @@ require 'telescope'.setup {
       theme = 'ivy',
       prefer_locations = true, -- always use Telescope locations to preview definitions/declarations/implementations etc
     }
+  },
+  pickers = {
+    colorscheme = {
+      enable_preview = true
+    }
   }
 }
 require("telescope").load_extension "file_browser"
@@ -94,3 +99,29 @@ require 'hop'.setup {}
 -- require("smartcolumn").setup({
 --   limit_to_window = true,
 -- })
+
+require('nvim-treesitter.configs').setup {
+  textsubjects = {
+    enable = true,
+    prev_selection = ',', -- (Optional) keymap to select the previous selection
+    keymaps = {
+      ['.'] = 'textsubjects-smart',
+      [';'] = 'textsubjects-container-outer',
+      ['i;'] = 'textsubjects-container-inner',
+    },
+  },
+}
+
+require('mini.indentscope').setup {
+  options = {
+    border = "top",
+  },
+  mappings = {
+    -- Textobjects
+    object_scope = '',
+    object_scope_with_border = '',
+    -- Motions (jump to respective border line; if not present - body line)
+    goto_top = '',
+    goto_bottom = '',
+  },
+}

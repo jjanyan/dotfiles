@@ -24,9 +24,8 @@
   "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
   "eslint.autoFixOnSave": false,
   "pyright.testing.provider": "pytest",
-
-  //"tsserver.experimental.enableProjectDiagnostics": true,
-
-  // this is how languages are configured now
+  "python.formatting.provider": "black",
+  "diagnostic.hintSign": "",
+  "diagnostic.enableHighlightLineNumber": false,
   "[typecript]": {}
 }

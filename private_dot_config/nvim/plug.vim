@@ -7,7 +7,7 @@ endif
 call plug#begin()
   " Make sure you use single quotes
   " treesitter
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'nvim-treesitter/nvim-treesitter'
 
   " coc.nvim - the good stuff
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -60,6 +60,12 @@ call plug#begin()
 
   " auto sessions?
   Plug 'olimorris/persisted.nvim'
+
+  " better text objects
+  Plug 'RRethy/nvim-treesitter-textsubjects'
+
+  " fancy left rail animation
+  Plug 'echasnovski/mini.indentscope'
 
   " smart column - highlight when you're at 80 chars
   " i like this, but cb has too much code that's 80+ chars

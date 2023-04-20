@@ -15,3 +15,8 @@
   arguments: (argument_list (string) @regex))
  (#eq? @_re "re")
  (#match? @regex "^r.*"))
+; highlight json within strings assigned to vars like, %json%
+(expression_statement
+  (assignment
+    left: (identifier) @_var (#match? @_var "([\w_]*(json)[\w_]*)") 
+    right: (string) @json))

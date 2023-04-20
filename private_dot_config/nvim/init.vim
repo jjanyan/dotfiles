@@ -6,11 +6,19 @@ lua require('config')
 
 " set theme
 "colorscheme tokyonight
-colorscheme noctis_uva
+"colorscheme noctis_uva
 colorscheme noctis_obscuro
 
 " copilot
 imap <silent><script><expr> <C-k> copilot#Accept("\<CR>")
+" get next copilot suggestion
+imap <silent><script><expr> <C-j> copilot#Next()
+" force copilot suggestion
+imap <silent><script><expr> <C-l> copilot#Suggest()
+" copilot panel
+nmap <leader>o :Copilot panel<CR>
+
+
 let g:copilot_no_tab_map = v:true
 
 source ~/.config/nvim/configs/coc.vim
