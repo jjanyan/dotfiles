@@ -9,5 +9,8 @@
 # search hidden files
 --hidden
 
+# ignore .git directory
+--glob=!{.git}
+
 # sort by path
 --sort=path
