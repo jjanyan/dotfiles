@@ -43,8 +43,8 @@ hotkey.bind(hyper, "L", function()
   local screen = win:screen()
   local max = screen:frame()
 
-  -- new macbook is 755, previous was 740
-  f.x = 755 -- max.x / 2
+  -- Position the window on the right half of the screen
+  f.x = max.x + (max.w / 2) -- This dynamically calculates the x position
   f.y = max.y
   f.w = max.w / 2
   f.h = max.h
@@ -79,6 +79,51 @@ end)
 hotkey.bind(hyper, "H", function()
   alert.show(
     "C - Chrome\nT - Kitty\nY - Spotify\nO - Obsidian\nD - DataGrip\nS - Slack\nR - Restart BetterTouchTool\nH - Help")
+end)
+
+
+-- Function to move the current window to the external monitor named "LG ULTRAWIDE"
+hotkey.bind(hyper, "V", function()
+  local externalMonitor = hs.screen.find("LG ULTRAWIDE")
+  if externalMonitor then
+    local win = hs.window.focusedWindow()
+    if win then
+      local f = win:frame()
+      local max = externalMonitor:frame()
+
+      f.x = max.x
+      f.y = max.y
+      f.w = max.w
+      f.h = max.h
+      win:setFrame(f)
+    else
+      hs.alert.show("No active window to move")
+    end
+  else
+    hs.alert.show("External monitor 'LG ULTRAWIDE' not found")
+  end
+end)
+
+-- Function to move the current window to the built-in monitor and make it take the full width and height of the screen
+hotkey.bind(hyper, "B", function()
+  local builtInMonitor = hs.screen.primaryScreen()  -- This targets the primary screen
+  if builtInMonitor then
+    local win = hs.window.focusedWindow()
+    if win then
+      local f = win:frame()
+      local max = builtInMonitor:frame()
+
+      f.x = max.x
+      f.y = max.y
+      f.w = max.w
+      f.h = max.h
+      win:setFrame(f)
+    else
+      hs.alert.show("No active window to move")
+    end
+  else
+    hs.alert.show("Built-in monitor not found")
+  end
 end)
 
 function restartApp(appName)
