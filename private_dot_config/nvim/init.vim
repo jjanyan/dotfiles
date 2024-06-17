@@ -7,7 +7,7 @@ lua require('config')
 " set theme
 "colorscheme tokyonight
 "colorscheme noctis_uva
-colorscheme noctis_obscuro
+"colorscheme noctis_obscuro
 
 " copilot
 imap <silent><script><expr> <C-k> copilot#Accept("\<CR>")

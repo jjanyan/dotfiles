@@ -1,6 +1,7 @@
 #if test "$SHLVL" -gt 1
 #  return
 #end
+set -gx PATH /opt/homebrew/bin /opt/homebrew/sbin $PATH
 if status is-interactive
   # control + k to accept suggestion
   # this stops my clearing the screen
@@ -63,11 +64,17 @@ if status is-interactive
   # ripgrep custom config
   export RIPGREP_CONFIG_PATH="/Users/josh/.config/rg/ripgreprc"
 
+  set fzf_prefix /opt/homebrew/opt/fzf
+  source $fzf_prefix/shell/key-bindings.fish
+  if test -e $fzf_prefix/shell/completion.fish
+      source $fzf_prefix/shell/completion.fish
+  end
+
   # this was colliding with mcfly. see if i need the ctrl+f functionality or not. if i do, figure out how to make them play nice together
   # set ctrl+f to search filenames
   # nvim ctrl+f => nvim app/models/org.py
   # ok, this allows me to use fzf for files, but not history, that's mcfly. the --history unbinds the history
-  fzf_configure_bindings --directory=\cF --history
+  fzf_key_bindings --directory=\cF --history
   # push history to ctrl+H
   # fzf_configure_bindings --history=\cR
   # fzf_configure_bindings --git_status=\cG
@@ -85,3 +92,5 @@ end
 
 set -gx VOLTA_HOME "$HOME/.volta"
 set -gx PATH "$VOLTA_HOME/bin" $PATH
+
+eval "$(/opt/homebrew/bin/brew shellenv)"

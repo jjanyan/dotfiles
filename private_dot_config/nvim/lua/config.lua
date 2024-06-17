@@ -41,7 +41,7 @@ require 'nvim-treesitter.configs'.setup {
 
 -- require('mini.surround').setup()
 require 'nvim-web-devicons'.setup { default = true, }
-require("bufferline").setup {}
+-- require("bufferline").setup {}
 require 'telescope'.setup {
   defaults = {
     mappings = {

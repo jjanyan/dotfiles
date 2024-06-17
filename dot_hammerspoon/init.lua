@@ -76,11 +76,14 @@ hotkey.bind(hyper, "S", function()
   application.launchOrFocus('Slack')
 end)
 
-hotkey.bind(hyper, "H", function()
-  alert.show(
-    "C - Chrome\nT - Kitty\nY - Spotify\nO - Obsidian\nD - DataGrip\nS - Slack\nR - Restart BetterTouchTool\nH - Help")
+hotkey.bind(hyper, "G", function()
+  application.launchOrFocus('ChatGPT')
 end)
 
+-- Lock computer
+hotkey.bind(hyper, "Q", function()
+  hs.caffeinate.lockScreen()
+end)
 
 -- Function to move the current window to the external monitor named "LG ULTRAWIDE"
 hotkey.bind(hyper, "V", function()
@@ -142,4 +145,20 @@ end
 -- restart BetterTouchTool
 hotkey.bind(hyper, "R", function()
   restartApp('BetterTouchTool')
+end)
+
+hotkey.bind(hyper, "H", function()
+  alert.show(
+    "C - Chrome\n" ..
+    "T - Kitty\n" ..
+    "Y - Spotify\n" ..
+    "O - Obsidian\n" ..
+    "D - DataGrip\n" ..
+    "S - Slack\n" ..
+    "R - Restart BetterTouchTool\n" ..
+    "H - Help\n" ..
+    "V - Move window to External Display\n" ..
+    "B - Move window to Built-in Retina Display\n" ..
+    "Q - Lock Computer"
+    )
 end)

@@ -13,7 +13,6 @@ alias fh='history 0 | fzf'
 # moved these back to alias so i can do gd, hit up, then modify to ga to continue. expanding out just makes shit slow. f*ck that
 alias gd='git diff'
 alias ga='git add'
-alias ls='exa --icons'
 alias j z
 alias ji zi
 alias killdns='sudo killall -HUP mDNSResponder'
