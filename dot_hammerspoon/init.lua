@@ -85,8 +85,14 @@ hotkey.bind(hyper, "Q", function()
   hs.caffeinate.lockScreen()
 end)
 
+hotkey.bind(hyper, "M", function()
+  local shortcutName = "Meeting"
+  local command = 'shortcuts run "' .. shortcutName .. '"'
+  hs.execute(command)
+end)
+
 -- Function to move the current window to the external monitor named "LG ULTRAWIDE"
-hotkey.bind(hyper, "V", function()
+hotkey.bind(hyper, "E", function()
   local externalMonitor = hs.screen.find("LG ULTRAWIDE")
   if externalMonitor then
     local win = hs.window.focusedWindow()
@@ -99,6 +105,7 @@ hotkey.bind(hyper, "V", function()
       f.w = max.w
       f.h = max.h
       win:setFrame(f)
+      win:focus()
     else
       hs.alert.show("No active window to move")
     end
@@ -108,7 +115,7 @@ hotkey.bind(hyper, "V", function()
 end)
 
 -- Function to move the current window to the built-in monitor and make it take the full width and height of the screen
-hotkey.bind(hyper, "B", function()
+hotkey.bind(hyper, "F", function()
   local builtInMonitor = hs.screen.primaryScreen()  -- This targets the primary screen
   if builtInMonitor then
     local win = hs.window.focusedWindow()
@@ -121,6 +128,7 @@ hotkey.bind(hyper, "B", function()
       f.w = max.w
       f.h = max.h
       win:setFrame(f)
+      win:focus()
     else
       hs.alert.show("No active window to move")
     end
@@ -157,8 +165,9 @@ hotkey.bind(hyper, "H", function()
     "S - Slack\n" ..
     "R - Restart BetterTouchTool\n" ..
     "H - Help\n" ..
-    "V - Move window to External Display\n" ..
-    "B - Move window to Built-in Retina Display\n" ..
+    "E - Move window to External Display\n" ..
+    "F - Move window to Primary Built-in Retina Display\n" ..
+    "M - Toggle Meeting focus\n" ..
     "Q - Lock Computer"
     )
 end)

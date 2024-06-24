@@ -16,6 +16,7 @@ alias ga='git add'
 alias j z
 alias ji zi
 alias killdns='sudo killall -HUP mDNSResponder'
+alias zen='git checkout master && git pull && gh poi'
 
 
 # vim
