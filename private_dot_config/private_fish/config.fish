@@ -25,7 +25,8 @@ if status is-interactive
   source ~/.config/fish/alias.fish
 
   # virtualenv path
-  export WORKON_HOME=~/.virtualenvs/
+  # export WORKON_HOME=~/.virtualenvs/
+  export PIPENV_VENV_IN_PROJECT=1
 
   # autojump
   [ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
@@ -70,11 +71,14 @@ if status is-interactive
       source $fzf_prefix/shell/completion.fish
   end
 
+  #bind -M viins -e \cf
+  #bind \ch 'mcfly search'
+
   # this was colliding with mcfly. see if i need the ctrl+f functionality or not. if i do, figure out how to make them play nice together
   # set ctrl+f to search filenames
   # nvim ctrl+f => nvim app/models/org.py
   # ok, this allows me to use fzf for files, but not history, that's mcfly. the --history unbinds the history
-  fzf_key_bindings --directory=\cF --history
+  fzf_key_bindings --directory=\cF # --history=
   # push history to ctrl+H
   # fzf_configure_bindings --history=\cR
   # fzf_configure_bindings --git_status=\cG

@@ -44,7 +44,5 @@ abbr -ag migrate 'npx prisma migrate dev'
 
 # misc
 abbr -ag cat bat
-abbr -ag la exa -al
-abbr -ag l exa -1 --icons
 
 # check https://github.com/gazorby/fish-exa for additional exa aliases

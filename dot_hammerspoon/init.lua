@@ -51,6 +51,25 @@ hotkey.bind(hyper, "L", function()
   win:setFrame(f)
 end)
 
+-- center bottom with 50% width
+hotkey.bind(hyper, "N", function()
+  local win = hs.window.focusedWindow()
+  local f = win:frame()
+  local screen = win:screen()
+  local max = screen:frame()
+
+  -- Set width to 50% of screen width
+  f.w = max.w * 0.5
+  -- Keep height as full height of the screen
+  f.h = max.h * 0.5
+  -- Center horizontally
+  f.x = max.x + (max.w - f.w) / 2
+  -- Position at the bottom of the screen
+  f.y = max.y + max.h - f.h
+
+  win:setFrame(f)
+end)
+
 -- show firefox
 hotkey.bind(hyper, "C", function()
   application.launchOrFocus('Google Chrome')
@@ -90,6 +109,33 @@ hotkey.bind(hyper, "M", function()
   local command = 'shortcuts run "' .. shortcutName .. '"'
   hs.execute(command)
 end)
+
+-- Reload Hammerspoon configuration
+hotkey.bind(hyper, "R", function()
+  -- hs.alert.show("Hammerspoon config reloaded")
+  hs.reload()
+end)
+
+
+hotkey.bind(hyper, "U", function()
+  hs.pasteboard.setContents("chris.degroat@crossbar.org")
+  hs.alert.show("Username copied to clipboard")
+end)
+
+hotkey.bind(hyper, "P", function()
+  local filePath = os.getenv("HOME") .. "/.password"
+  local file = io.open(filePath, "r")
+  if file then
+    local content = file:read("*all")
+    file:close()
+    content = content:gsub("^%s*(.-)%s*$", "%1")
+    hs.pasteboard.setContents(content)
+    hs.alert.show("Password copied to clipboard")
+  else
+    hs.alert.show("Failed to open password file")
+  end
+end)
+
 
 -- Function to move the current window to the external monitor named "LG ULTRAWIDE"
 hotkey.bind(hyper, "E", function()
@@ -150,11 +196,6 @@ function restartApp(appName)
   end
 end
 
--- restart BetterTouchTool
-hotkey.bind(hyper, "R", function()
-  restartApp('BetterTouchTool')
-end)
-
 hotkey.bind(hyper, "H", function()
   alert.show(
     "C - Chrome\n" ..
@@ -163,11 +204,13 @@ hotkey.bind(hyper, "H", function()
     "O - Obsidian\n" ..
     "D - DataGrip\n" ..
     "S - Slack\n" ..
-    "R - Restart BetterTouchTool\n" ..
+    "R - Reload Hammerspoon config\n" ..
     "H - Help\n" ..
     "E - Move window to External Display\n" ..
     "F - Move window to Primary Built-in Retina Display\n" ..
     "M - Toggle Meeting focus\n" ..
+    "U - Copy username\n" ..
+    "P - Copy password\n" ..
     "Q - Lock Computer"
     )
 end)
