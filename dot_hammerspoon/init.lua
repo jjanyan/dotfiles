@@ -87,8 +87,40 @@ hotkey.bind(hyper, "O", function()
   application.launchOrFocus('Obsidian')
 end)
 
+-- hotkey.bind(hyper, "D", function()
+--   application.launchOrFocus('DataGrip')
+-- end)
+-- Move DataGrip window to the right half of the external monitor if available, otherwise to the right half of the current screen
 hotkey.bind(hyper, "D", function()
-  application.launchOrFocus('DataGrip')
+  -- Launch or focus DataGrip
+  hs.application.launchOrFocus('DataGrip')
+  
+  -- Repeatedly check until the application window is available
+  hs.timer.waitUntil(
+      function()
+          local app = hs.application.get("DataGrip")
+          return app and app:mainWindow()
+      end,
+      function()
+          local app = hs.application.get("DataGrip")
+          local win = app:mainWindow()
+          if win then
+              local externalMonitor = hs.screen.find("LG ULTRAWIDE")
+              if externalMonitor then
+                  local f = win:frame()
+                  local max = externalMonitor:frame()
+
+                  f.x = max.x + (max.w / 2) -- Move to right half of the external monitor
+                  f.y = max.y
+                  f.w = max.w / 2
+                  f.h = max.h
+                  win:setFrame(f)
+              end
+              win:focus()
+          end
+      end,
+      0.1 -- Check every 100ms
+  )
 end)
 
 hotkey.bind(hyper, "S", function()
@@ -135,7 +167,6 @@ hotkey.bind(hyper, "P", function()
     hs.alert.show("Failed to open password file")
   end
 end)
-
 
 -- Function to move the current window to the external monitor named "LG ULTRAWIDE"
 hotkey.bind(hyper, "E", function()
