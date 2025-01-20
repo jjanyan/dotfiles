@@ -70,13 +70,63 @@ hotkey.bind(hyper, "N", function()
   win:setFrame(f)
 end)
 
--- show firefox
+
+function launchAndPositionApp(appName, screenPosition, monitorType)
+  -- Launch or focus the application
+  hs.application.launchOrFocus(appName)
+  
+  -- Repeatedly check until the application window is available
+  hs.timer.waitUntil(
+    function()
+      local app = hs.application.get(appName)
+      return app and app:mainWindow()
+    end,
+    function()
+      local app = hs.application.get(appName)
+      local win = app:mainWindow()
+      if win then
+        local targetMonitor
+        if monitorType == "external" then
+          targetMonitor = hs.screen.find("LG ULTRAWIDE")
+        else
+          targetMonitor = hs.screen.primaryScreen()
+        end
+        
+        if targetMonitor then
+          local f = win:frame()
+          local max = targetMonitor:frame()
+
+          if screenPosition == "full" then
+            f.x, f.y, f.w, f.h = max.x, max.y, max.w, max.h
+          elseif screenPosition == "left" then
+            f.x, f.y, f.w, f.h = max.x, max.y, max.w / 2, max.h
+          elseif screenPosition == "right" then
+            f.x, f.y, f.w, f.h = max.x + (max.w / 2), max.y, max.w / 2, max.h
+          end
+          
+          win:setFrame(f)
+        end
+        win:focus()
+      end
+    end,
+    0.1 -- Check every 100ms
+  )
+end
+
+-- show chrome
 hotkey.bind(hyper, "C", function()
-  application.launchOrFocus('Google Chrome')
+  -- application.launchOrFocus('Google Chrome')
+  application.launchOrFocus('Claude')
+end)
+-- show edItor (currently cursor)
+hotkey.bind(hyper, "I", function()
+  launchAndPositionApp('Cursor', "full", "external")
 end)
 -- show kitty terminal
 hotkey.bind(hyper, "T", function()
-  application.launchOrFocus('kitty')
+  -- launchAndPositionApp('WezTerm', "full", "internal")
+  -- hs.application.launchOrFocus('WezTerm')
+  hs.application.launchOrFocus('Ghostty')
 end)
 -- show current spotify track
 hotkey.bind(hyper, "Y", function()
@@ -86,45 +136,13 @@ end)
 hotkey.bind(hyper, "O", function()
   application.launchOrFocus('Obsidian')
 end)
-
--- hotkey.bind(hyper, "D", function()
---   application.launchOrFocus('DataGrip')
--- end)
--- Move DataGrip window to the right half of the external monitor if available, otherwise to the right half of the current screen
 hotkey.bind(hyper, "D", function()
-  -- Launch or focus DataGrip
-  hs.application.launchOrFocus('DataGrip')
-  
-  -- Repeatedly check until the application window is available
-  hs.timer.waitUntil(
-      function()
-          local app = hs.application.get("DataGrip")
-          return app and app:mainWindow()
-      end,
-      function()
-          local app = hs.application.get("DataGrip")
-          local win = app:mainWindow()
-          if win then
-              local externalMonitor = hs.screen.find("LG ULTRAWIDE")
-              if externalMonitor then
-                  local f = win:frame()
-                  local max = externalMonitor:frame()
-
-                  f.x = max.x + (max.w / 2) -- Move to right half of the external monitor
-                  f.y = max.y
-                  f.w = max.w / 2
-                  f.h = max.h
-                  win:setFrame(f)
-              end
-              win:focus()
-          end
-      end,
-      0.1 -- Check every 100ms
-  )
+  launchAndPositionApp('DataGrip', "right", "external")
 end)
 
 hotkey.bind(hyper, "S", function()
-  application.launchOrFocus('Slack')
+  -- application.launchOrFocus('Slack')
+  launchAndPositionApp('Slack', 'full', 'internal')
 end)
 
 hotkey.bind(hyper, "G", function()
@@ -150,7 +168,7 @@ end)
 
 
 hotkey.bind(hyper, "U", function()
-  hs.pasteboard.setContents("chris.degroat@crossbar.org")
+  hs.pasteboard.setContents("josh.anyan@crossbar.org")
   hs.alert.show("Username copied to clipboard")
 end)
 
@@ -191,6 +209,38 @@ hotkey.bind(hyper, "E", function()
   end
 end)
 
+
+-- Add this new function near your other window management functions
+function centerHalfExternal()
+    local win = hs.window.focusedWindow()
+    if not win then return end
+    
+    -- Find LG ULTRAWIDE specifically
+    local external = hs.screen.find("LG ULTRAWIDE")
+    
+    if external then
+        -- Get external screen frame
+        local frame = external:frame()
+        -- Calculate one third width
+        local newWidth = frame.w / 2
+        -- Center the window
+        local newX = frame.x + (frame.w - newWidth) / 2
+        
+        win:setFrame({
+            x = newX,
+            y = frame.y,
+            w = newWidth,
+            h = frame.h
+        })
+    else
+        -- Maximize on current screen if no external monitor
+        win:maximize()
+    end
+end
+
+-- Add this to your key bindings section
+hs.hotkey.bind(hyper, "B", centerHalfExternal)
+
 -- Function to move the current window to the built-in monitor and make it take the full width and height of the screen
 hotkey.bind(hyper, "F", function()
   local builtInMonitor = hs.screen.primaryScreen()  -- This targets the primary screen
@@ -227,16 +277,47 @@ function restartApp(appName)
   end
 end
 
+local username = "josh.anyan@crossbar.org"
+local passwordFilePath = os.getenv("HOME") .. "/.password"
+
+hs.hotkey.bind(hyper, "A", function()
+    -- Add initial delay to ensure input field has focus
+    hs.timer.doAfter(0.1, function()
+        -- Type username
+        hs.eventtap.keyStrokes(username)
+        
+        hs.timer.doAfter(0.2, function()
+            hs.eventtap.keyStroke({}, "tab")
+            
+            -- Read password from file
+            local file = io.open(passwordFilePath, "r")
+            if file then
+                local password = file:read("*all"):gsub("^%s*(.-)%s*$", "%1")
+                file:close()
+                -- Type password
+                hs.eventtap.keyStrokes(password)
+                hs.timer.doAfter(0.2, function()
+                    hs.eventtap.keyStroke({}, "return")
+                end)
+            else
+                hs.alert.show("Failed to open password file")
+            end
+        end)
+    end)
+end)
+
 hotkey.bind(hyper, "H", function()
   alert.show(
     "C - Chrome\n" ..
-    "T - Kitty\n" ..
+    "I - IDE (Editor)\n" ..
+    "T - Terminal\n" ..
     "Y - Spotify\n" ..
     "O - Obsidian\n" ..
     "D - DataGrip\n" ..
     "S - Slack\n" ..
     "R - Reload Hammerspoon config\n" ..
     "H - Help\n" ..
+    "B - Center window on external monitor\n" ..
     "E - Move window to External Display\n" ..
     "F - Move window to Primary Built-in Retina Display\n" ..
     "M - Toggle Meeting focus\n" ..
