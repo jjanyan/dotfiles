@@ -1,6 +1,8 @@
 local wezterm = require 'wezterm'
 -- ctrl + shift + x = copy mode where i can use vi commands to copy stuff
 return {
+  window_close_confirmation = "NeverPrompt",
+  skip_close_confirmation_for_processes_named = { 'bash', 'sh', 'zsh', 'fish', 'tmux' },
   keys = {
     -- this is required to open in home directory on new tabs
     { key = "t", mods = "CMD", action = wezterm.action { SpawnCommandInNewTab = {
@@ -8,9 +10,11 @@ return {
     } } },
   },
   font = wezterm.font("JetBrainsMono Nerd Font Mono", { weight = "Medium", stretch = "Normal", style = "Normal" }),
-  font_size = 15.0,
+  font_size = 14.0,
   -- color_scheme = "BirdsOfParadise",
   color_scheme = "ChallengerDeep",
+  window_close_confirmation = "NeverPrompt",
+  skip_close_confirmation_for_processes_named = { 'bash', 'sh', 'zsh', 'fish', 'tmux' },
   hyperlink_rules = {
     -- Linkify things that look like URLs and the host has a TLD name.
     -- Compiled-in default. Used if you don't specify any hyperlink_rules.
@@ -49,9 +53,9 @@ return {
       format = '$0',
     },
 
-    -- linkify linear issues- dev-123
+    -- linkify linear issues- dev-123 or ps-1234-what-is-up
     {
-      regex = [[([a-zA-Z]{3,}-\d+)]],
+      regex = [[\b([a-zA-Z]{2,}-\d+)(-[a-zA-Z0-9-]+)*\b]],
       format = 'https://linear.app/crossbar/issue/$1',
     }
   }

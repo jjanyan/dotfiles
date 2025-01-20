@@ -36,7 +36,8 @@ if status is-interactive
   zoxide init fish | source
 
   # mysql path
-  export PATH="/usr/local/opt/mysql/bin:$PATH"
+  #export PATH="/usr/local/opt/mysql/bin:$PATH"
+  export PATH="/opt/homebrew/opt/mysql-client@8.4/bin/:$PATH"
 
   # custom bin path
   export PATH="/Users/josh/.bin:$PATH"
@@ -47,7 +48,8 @@ if status is-interactive
 
 
   # for go / golang
-  export PATH="/Users/josh/go/bin:$PATH"
+  #export PATH="/Users/josh/go/bin:$PATH"
+  export PATH="/usr/local/go/bin/:$PATH"
 
 
   # use bat with delta diff tool

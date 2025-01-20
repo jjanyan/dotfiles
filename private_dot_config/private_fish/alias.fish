@@ -17,6 +17,9 @@ alias j z
 alias ji zi
 alias killdns='sudo killall -HUP mDNSResponder'
 alias zen='git checkout master && git pull && gh poi'
+alias ugh='git checkout main && git pull && gh poi'
+alias c='cursor'
+alias clearmemcache='echo "flush_all" | nc localhost 11211'
 
 
 # vim
