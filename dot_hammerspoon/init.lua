@@ -281,29 +281,48 @@ local username = "josh.anyan@crossbar.org"
 local passwordFilePath = os.getenv("HOME") .. "/.password"
 
 hs.hotkey.bind(hyper, "A", function()
-    -- Add initial delay to ensure input field has focus
-    hs.timer.doAfter(0.1, function()
-        -- Type username
-        hs.eventtap.keyStrokes(username)
-        
-        hs.timer.doAfter(0.2, function()
-            hs.eventtap.keyStroke({}, "tab")
-            
-            -- Read password from file
-            local file = io.open(passwordFilePath, "r")
-            if file then
-                local password = file:read("*all"):gsub("^%s*(.-)%s*$", "%1")
-                file:close()
-                -- Type password
-                hs.eventtap.keyStrokes(password)
-                hs.timer.doAfter(0.2, function()
-                    hs.eventtap.keyStroke({}, "return")
-                end)
-            else
-                hs.alert.show("Failed to open password file")
-            end
-        end)
-    end)
+    -- Read password from file
+    local file = io.open(passwordFilePath, "r")
+    if not file then
+        hs.alert.show("Failed to open password file")
+        return
+    end
+
+    local password = file:read("*all"):gsub("^%s*(.-)%s*$", "%1")
+    file:close()
+
+    -- Create the osascript command with proper escaping
+    local script = string.format([[
+    osascript <<EOF
+    tell application "Google Chrome"
+        set t to active tab of window 1
+        execute t javascript "
+            (function() {
+                var form = document.getElementById('login_form');
+                if (form) {
+                    var emailInput = form.querySelector('input[name=\"email\"]');
+                    var passwordInput = form.querySelector('input[name=\"password\"]');
+                    if (emailInput && passwordInput) {
+                        emailInput.value = '%s';
+                        passwordInput.value = '%s';
+                        form.submit();
+                    } else {
+                        alert('Email or password input not found.');
+                    }
+                } else {
+                    alert('Login form not found.');
+                }
+            })();
+        "
+    end tell
+    EOF
+    ]], username, password)
+
+    -- Execute the script
+    local success, output, rawOutput = hs.execute(script)
+    if not success then
+        hs.alert.show("Login script failed")
+    end
 end)
 
 hotkey.bind(hyper, "H", function()
