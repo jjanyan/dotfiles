@@ -122,11 +122,11 @@ end)
 hotkey.bind(hyper, "I", function()
   launchAndPositionApp('Cursor', "full", "external")
 end)
--- show kitty terminal
 hotkey.bind(hyper, "T", function()
   -- launchAndPositionApp('WezTerm', "full", "internal")
   -- hs.application.launchOrFocus('WezTerm')
-  hs.application.launchOrFocus('Ghostty')
+  -- hs.application.launchOrFocus('Ghostty')
+  hs.application.launchOrFocus('iTerm')
 end)
 -- show current spotify track
 hotkey.bind(hyper, "Y", function()
@@ -153,6 +153,11 @@ end)
 hotkey.bind(hyper, "Q", function()
   hs.caffeinate.lockScreen()
 end)
+
+-- alert and hopefully override default period
+--hotkey.bind(hyper, ".", function()
+--  hs.alert.show("Override default period")
+--end)
 
 hotkey.bind(hyper, "M", function()
   local shortcutName = "Meeting"
@@ -237,6 +242,36 @@ function centerHalfExternal()
         win:maximize()
     end
 end
+
+function centerHalfHeightExternal()
+  local win = hs.window.focusedWindow()
+  if not win then return end
+  
+  -- Find LG ULTRAWIDE specifically
+  local external = hs.screen.find("LG ULTRAWIDE")
+  
+  if external then
+      -- Get external screen frame
+      local frame = external:frame()
+      -- Keep current width
+      local currentWidth = win:frame().w
+      -- Calculate half height
+      local newHeight = frame.h / 2
+      
+      win:setFrame({
+          x = frame.x + (frame.w - currentWidth) / 2, -- center horizontally
+          y = frame.y + (frame.h - newHeight) / 2,    -- center vertically
+          w = currentWidth,                           -- keep current width
+          h = newHeight                               -- half height
+      })
+  else
+      -- Fallback to regular centerHalfHeight if no external monitor
+      centerHalfHeight()
+  end
+end
+
+-- Add this to your key bindings section
+hs.hotkey.bind(hyper, "V", centerHalfHeightExternal)
 
 -- Add this to your key bindings section
 hs.hotkey.bind(hyper, "B", centerHalfExternal)
@@ -345,3 +380,4 @@ hotkey.bind(hyper, "H", function()
     "Q - Lock Computer"
     )
 end)
+
