@@ -16,9 +16,10 @@ alias ga='git add'
 alias j z
 alias ji zi
 alias killdns='sudo killall -HUP mDNSResponder'
-alias zen='git checkout master && git pull && gh poi'
+#alias zen='git checkout master && git pull && gh poi'
+alias zen='git checkout master && git pull'
 alias ugh='git checkout main && git pull && gh poi'
-alias c='cursor'
+alias c='code'
 alias clearmemcache='echo "flush_all" | nc localhost 11211'
 
 
@@ -28,6 +29,9 @@ abbr -ag vi nvim
 
 # keep my dotfiles up to date
 abbr -ag ca chezmoi add
+
+# pnpm is horrible to type
+abbr -ag p pnpm
 
 # git
 abbr -ag gs git status
