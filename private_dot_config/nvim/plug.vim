@@ -7,7 +7,7 @@ endif
 call plug#begin()
   " Make sure you use single quotes
   " treesitter
-  Plug 'nvim-treesitter/nvim-treesitter'
+  Plug 'nvim-treesitter/nvim-treesitter', { 'branch': 'master' }
 
   " coc.nvim - the good stuff
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -47,7 +47,7 @@ call plug#begin()
   Plug 'tpope/vim-fugitive'
 
   " move around more efficiently
-  Plug 'phaazon/hop.nvim'
+  Plug 'smoka7/hop.nvim'
 
   " surround stuff
   Plug 'echasnovski/mini.nvim', { 'branch': 'stable' }

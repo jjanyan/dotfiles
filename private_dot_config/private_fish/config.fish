@@ -7,7 +7,8 @@ if status is-interactive
   # this stops my clearing the screen
   #bind -M insert \cl accept-autosuggestion
 
-  # INFO: make sure to run `fish_vi_key_bindings` !!!
+  # vi mode
+  set -g fish_key_bindings fish_vi_key_bindings
   bind -M insert \cN forward-word
   bind -M insert \cK accept-autosuggestion
 
